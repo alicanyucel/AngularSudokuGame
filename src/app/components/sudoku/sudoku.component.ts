@@ -27,6 +27,29 @@ alert: any;
     return this.initialGrid[r][c] === 0;
   }
 
+  /** Handle single-character input from text inputs. Accepts '1'-'9' or empty. */
+  onCellInput(ev: Event | string | null, row: number, col: number) {
+    let value: string = '';
+    if (typeof ev === 'string') value = ev;
+    else if (ev && typeof ev === 'object') {
+      const target = ev.target as HTMLInputElement | null;
+      value = target ? target.value : '';
+    }
+    const v = (value || '').trim();
+    if (v === '') {
+      this.grid[row][col] = 0;
+      return;
+    }
+    // accept only first digit
+    const ch = v.charAt(0);
+    if (/^[1-9]$/.test(ch)) {
+      this.grid[row][col] = Number(ch);
+    } else {
+      // invalid input: clear
+      this.grid[row][col] = 0;
+    }
+  }
+
   // ... önceki checkWin ve isValid fonksiyonların aynı kalabilir ...
   checkWin(): boolean {
     for (let r = 0; r < 9; r++) {

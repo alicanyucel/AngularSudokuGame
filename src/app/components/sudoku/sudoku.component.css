@@ -1,18 +1,57 @@
-.sudoku-board {
-  display: grid;
-  grid-template-rows: repeat(9, 40px);
-  width: 360px;
-  margin: 20px auto;
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
 }
+.controls button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+.controls button:hover { background:#f3f3f3 }
+
+/* full-bleed responsive grid which fits both horizontally and vertically */
+.sudoku-board.full-bleed {
+  --side-pad: 16px; /* padding reserved at page sides */
+  --gap: 4px; /* gap between cells */
+  /* reserve space vertically for header, controls and other UI (approx) */
+  --reserved-v: 140px;
+  --available-w: calc(100vw - (var(--side-pad) * 2));
+  --available-h: calc(100vh - var(--reserved-v));
+  /* cell size accounts for gaps (8 gaps between 9 cells => 8 * var(--gap)) */
+  --cell-size: min(calc((var(--available-w) - 32px) / 9), calc((var(--available-h) - 32px) / 9));
+
+  width: calc(var(--cell-size) * 9 + 32px);
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 0 var(--side-pad);
+  margin: 8px auto 20px auto;
+}
+
 .sudoku-row {
   display: grid;
-  grid-template-columns: repeat(9, 40px);
+  grid-template-columns: repeat(9, var(--cell-size));
+  gap: var(--gap);
 }
-input {
+
+.sudoku-row > input {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  box-sizing: border-box;
   text-align: center;
-  font-size: 18px;
+  font-size: clamp(14px, 1.8vw, 22px);
   border: 1px solid #999;
+  padding: 0;
 }
+
+/* focus & accessibility */
+.sudoku-row > input:focus { outline: 2px solid #1976d2; }
+
 .fixed {
   background-color: #eee;
   font-weight: bold;
