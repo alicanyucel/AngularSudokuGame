@@ -1,0 +1,21 @@
+<div class="controls">
+  <button (click)="newGame('easy')">Kolay</button>
+  <button (click)="newGame('medium')">Orta</button>
+  <button (click)="newGame('hard')">Zor</button>
+</div>
+
+<div class="sudoku-board">
+  <div *ngFor="let row of grid; let r = index" class="sudoku-row">
+    <input *ngFor="let cell of row; let c = index"
+           type="number"
+           min="1" max="9"
+           [readonly]="!isEditable(r,c)"
+           [(ngModel)]="grid[r][c]"
+           [class.fixed]="!isEditable(r,c)"
+           [class.invalid]="!isValid(r,c,grid[r][c]) && grid[r][c] !== 0"/>
+  </div>
+</div>
+
+<button (click)="checkWin() ? alert('Tebrikler! 🎉') : alert('Hatalar var!')">
+  Kontrol Et
+</button>

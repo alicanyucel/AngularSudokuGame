@@ -1,0 +1,22 @@
+.sudoku-board {
+  display: grid;
+  grid-template-rows: repeat(9, 40px);
+  width: 360px;
+  margin: 20px auto;
+}
+.sudoku-row {
+  display: grid;
+  grid-template-columns: repeat(9, 40px);
+}
+input {
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #999;
+}
+.fixed {
+  background-color: #eee;
+  font-weight: bold;
+}
+.invalid {
+  background-color: #ffdddd;
+}
